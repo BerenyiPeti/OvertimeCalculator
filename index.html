@@ -1,30 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <label for="">quota</label>
-    <input type="number" id="quota">
-    <label for="">sold</label>
-    <input type="number" id="sold">
-    <button onclick="calculate()">OK</button>
+
+<body style="text-align: center;">
+    <h1>How much to sell</h1>
+
+    <label for="quota2">quota</label>
+    <input type="number" id="quota2" placeholder="130" required>
+    <label for="money">money</label>
+    <input type="number" id="money" placeholder="60" required>
+    <label for="goal">goal</label>
+    <input type="number" id="goal" placeholder="550" required>
+    <button onclick="calculateSell()">OK</button>
+
+    <p>sell exactly:</p>
+    <p id="result2">0</p>
+    <hr>
+
+    <h1>Overtime calculator</h1>
+    <label for="quota1">quota</label>
+    <input type="number" id="quota1" placeholder="130" required>
+    <label for="sold">sold</label>
+    <input type="number" id="sold" placeholder="443" required>
+    <button onclick="calculateOvertimeBonus()">OK</button>
 
     <p>overtime:</p>
     <p id="result">0</p>
     <script>
-        function calculate() {
-            const q = parseInt(document.getElementById("quota").value) 
-            const s = parseInt(document.getElementById("sold").value) 
-            const result = Math.ceil(((s - q) / 5) - 15) 
-            if (result<0) {
-                result = 0
+
+        function checkForNull(value) {
+            try {
+                parseInt(value)
+                return true
+            } catch (error) {
+
             }
-            document.getElementById("result").textContent = result
-            
+        }
+
+        function calculateOvertimeBonus() {
+            let q = parseInt(document.getElementById("quota1").value)
+            const s = parseInt(document.getElementById("sold").value)
+
+            if (isNaN(q) || isNaN(s)) {
+                alert("You need to fill all fields!")
+            } else {
+                if (q < 0) {
+                    q = q * -1
+                }
+
+                let result = Math.round(((s - q) / 5) - 15)
+
+                if (result < 0) {
+                    result = 0
+                }
+
+                if (checkForNull(result)) {
+                    document.getElementById("result").textContent = result
+                }
+            }
+        }
+
+        function calculateSell() {
+            let q = parseInt(document.getElementById("quota2").value)
+            const m = parseInt(document.getElementById("money").value)
+            const g = parseInt(document.getElementById("goal").value)
+
+            if (isNaN(q) || isNaN(m) || isNaN(g)) {
+                alert("You need to fill all fields!")
+            } else {
+                if (q < 0) {
+                    q = q * -1
+                }
+                
+                let result = Math.round((5 / 6) * (g - m + 15 + q / 5))
+
+                if ((m + result) > g) {
+                    result = g - m
+                }
+
+                let minimum = g - m
+
+                if (minimum <= q) {
+                    result = minimum
+                }
+
+                if (result < q) {
+                    result = q
+                }
+
+                document.getElementById("result2").textContent = result
+            }
         }
     </script>
 </body>
+
 </html>
