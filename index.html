@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Overtime Calculator</title>
 </head>
 
 <body style="text-align: center;">
@@ -32,16 +32,6 @@
     <p>overtime:</p>
     <p id="result">0</p>
     <script>
-
-        function checkForNull(value) {
-            try {
-                parseInt(value)
-                return true
-            } catch (error) {
-
-            }
-        }
-
         function calculateOvertimeBonus() {
             let q = parseInt(document.getElementById("quota1").value)
             const s = parseInt(document.getElementById("sold").value)
