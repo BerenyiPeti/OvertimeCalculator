@@ -9,29 +9,32 @@
 </head>
 
 <body style="text-align: center;">
-    <h1>How much to sell</h1>
+    <main id="main">
 
-    <label for="quota2">quota</label>
-    <input type="number" id="quota2" placeholder="130" required>
-    <label for="money">money</label>
-    <input type="number" id="money" placeholder="60" required>
-    <label for="goal">goal</label>
-    <input type="number" id="goal" placeholder="550" required>
-    <button onclick="calculateSell()">OK</button>
 
-    <p>sell exactly:</p>
-    <p id="result2">0</p>
-    <hr>
+        <h1>How much to sell</h1>
 
-    <h1>Overtime calculator</h1>
-    <label for="quota1">quota</label>
-    <input type="number" id="quota1" placeholder="130" required>
-    <label for="sold">sold</label>
-    <input type="number" id="sold" placeholder="443" required>
-    <button onclick="calculateOvertimeBonus()">OK</button>
+        <label for="quota2">quota</label>
+        <input type="number" id="quota2" placeholder="130" required>
+        <label for="money">money</label>
+        <input type="number" id="money" placeholder="60" required>
+        <label for="goal">goal</label>
+        <input type="number" id="goal" placeholder="550" required>
+        <button onclick="calculateSell()">OK</button>
 
-    <p>overtime:</p>
-    <p id="result">0</p>
+        <p>sell exactly:</p>
+        <p id="result2" class="results">0</p>
+
+        <h1>Overtime calculator</h1>
+        <label for="quota1">quota</label>
+        <input type="number" id="quota1" placeholder="130" required>
+        <label for="sold">sold</label>
+        <input type="number" id="sold" placeholder="430" required>
+        <button onclick="calculateOvertimeBonus()">OK</button>
+
+        <p>overtime:</p>
+        <p id="result" class="results">0</p>
+    </main>
     <script>
         function calculateOvertimeBonus() {
             let q = parseInt(document.getElementById("quota1").value)
@@ -65,7 +68,7 @@
                 if (q < 0) {
                     q = q * -1
                 }
-                
+
                 let result = Math.ceil((5 / 6) * (g - m + q / 5))
 
                 if ((m + result) > g) {
