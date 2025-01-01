@@ -11,8 +11,6 @@
 
 <body>
     <main id="main">
-
-
         <h1>How much to sell</h1>
 
         <label for="quota2">quota</label>
@@ -97,7 +95,7 @@
             const m = parseInt(document.getElementById("money").value)
             const g = parseInt(document.getElementById("goal").value)
             const r = document.getElementById("rehost").checked
-            console.log(r);
+
             if (isNaN(q) || isNaN(m) || isNaN(g)) {
                 alert("You need to fill all fields!")
             } else {
@@ -109,7 +107,6 @@
 
                 if (r) {
                     result = Math.ceil((5 / 6) * (g - m  + q / 5)) 
-                    console.log("rehosted");
                                
                 }
 
