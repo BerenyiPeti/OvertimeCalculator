@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="favicon.jpeg" type="image/x-icon">
 </head>
 
-<body style="text-align: center;">
+<body>
     <main id="main">
 
 
@@ -21,6 +21,8 @@
         <input type="number" id="money" placeholder="60" required>
         <label for="goal">goal</label>
         <input type="number" id="goal" placeholder="550" required>
+        <label for="rehost">rehosted</label>
+        <input type="checkbox" id="rehost" required>
         <button onclick="calculateSell()">OK</button>
 
         <p>sell exactly:</p>
@@ -31,24 +33,56 @@
         <input type="number" id="quota1" placeholder="130" required>
         <label for="sold">sold</label>
         <input type="number" id="sold" placeholder="430" required>
+        <label for="rehost2">rehosted</label>
+        <input type="checkbox" id="rehost2">
         <button onclick="calculateOvertimeBonus()">OK</button>
 
-        <p>overtime:</p>
+        <p>overtime bonus:</p>
         <p id="result" class="results">0</p>
+        <button onclick="howToUse()">How to use</button>
+        <p><span>Note:</span> This calculator only works if you sell your scrap on day 0! If you sell scrap on any other day, your overtime bonus will be calculated differently!</p>
     </main>
+
+    <div id="info">
+        <button id="closeInfo" onclick="closeInfo()">X</button>
+        <h1>How to use</h1>
+        <h2>Selling calculator</h2>
+        <ul>
+            <li><span>quota:</span> Your current profit quota</li>
+            <li><span>money:</span> The amount of money you currently have</li>
+            <li><span>goal:</span> The amount of money you want to achive.</li>
+        </ul>
+        <h2>Overtime calculator</h2>
+        <ul>
+            <li><span>quota</span> Your current profit quota</li>
+            <li><span>sold:</span> The amount of money you sold</li>
+        </ul>
+        <h2>Rehosted option</h2>
+        <ul>
+            <li>Due to a bug, the calculation of the overtime bonus is inconsistent and will change if the savefile was rehosted on day 0 (deadline). If the host left on day 0 before selling the scraps, check this box! This only applies for that quota.</li>
+        </ul>
+    </div>
+
     <script>
         function calculateOvertimeBonus() {
             let q = parseInt(document.getElementById("quota1").value)
             const s = parseInt(document.getElementById("sold").value)
-
+            const r = document.getElementById("rehost2").checked
+            
+            
             if (isNaN(q) || isNaN(s)) {
                 alert("You need to fill all fields!")
             } else {
+                
                 if (q < 0) {
                     q = q * -1
                 }
-
+                
                 let result = Math.floor(((s - q) / 5) - 15)
+
+                if (r) {
+                    result = Math.floor(((s - q) / 5))
+                } 
 
                 if (result < 0) {
                     result = 0
@@ -62,7 +96,8 @@
             let q = parseInt(document.getElementById("quota2").value)
             const m = parseInt(document.getElementById("money").value)
             const g = parseInt(document.getElementById("goal").value)
-
+            const r = document.getElementById("rehost").checked
+            console.log(r);
             if (isNaN(q) || isNaN(m) || isNaN(g)) {
                 alert("You need to fill all fields!")
             } else {
@@ -70,7 +105,13 @@
                     q = q * -1
                 }
 
-                let result = Math.ceil((5 / 6) * (g - m + + 15 + q / 5))
+                let result = Math.ceil((5 / 6) * (g - m + 15 + q / 5))
+
+                if (r) {
+                    result = Math.ceil((5 / 6) * (g - m  + q / 5)) 
+                    console.log("rehosted");
+                               
+                }
 
                 if ((m + result) > g) {
                     result = g - m
@@ -89,6 +130,16 @@
                 document.getElementById("result2").textContent = result
             }
         }
+
+        function closeInfo() {
+            document.getElementById("info").style.display = "none"
+        }
+
+        function howToUse() {
+            document.getElementById("info").style.display = "block"
+        }
+
+
     </script>
 </body>
 
